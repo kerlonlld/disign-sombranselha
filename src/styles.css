@@ -31,7 +31,6 @@ textarea::placeholder {
   background: linear-gradient(90deg, transparent, rgba(15, 23, 42, 0.9) 70%);
 }
 
-
 .before-after-slider input[type='range'] {
   -webkit-appearance: none;
   width: 100%;
@@ -48,6 +47,76 @@ textarea::placeholder {
   border-radius: 9999px;
   background: #f8fafc;
   box-shadow: 0 0 0 4px rgba(236, 72, 153, 0.18);
+}
+
+/* ===== FULLCALENDAR DARK MODE FIX ===== */
+.fc {
+  --fc-border-color: #334155;
+  --fc-page-bg-color: #0f172a;
+  --fc-neutral-bg-color: #1e293b;
+}
+
+.fc .fc-col-header-cell {
+  background: #0f172a!important;
+  border-color: #334155!important;
+}
+
+.fc .fc-col-header-cell-cushion {
+  color: #e2e8f0!important;
+  font-weight: 600;
+  padding: 8px 4px;
+}
+
+.fc .fc-daygrid-day-number {
+  color: #cbd5e1!important;
+}
+
+.fc .fc-daygrid-day {
+  background: #0f172a!important;
+}
+
+.fc .fc-timegrid-slot {
+  border-color: #1e293b!important;
+}
+
+.fc .fc-timegrid-slot-label-cushion {
+  color: #94a3b8!important;
+}
+
+.fc .fc-toolbar-title {
+  color: #ffffff!important;
+  font-size: 1.1rem;
+}
+
+.fc .fc-button {
+  background: #1e293b!important;
+  border-color: #475569!important;
+  color: #e2e8f0!important;
+  text-transform: capitalize;
+}
+
+.fc .fc-button:hover {
+  background: #334155!important;
+  border-color: #64748b!important;
+}
+
+.fc .fc-button-active {
+  background: #ec4899!important;
+  border-color: #ec4899!important;
+}
+
+.fc .fc-daygrid-day.fc-day-today,
+.fc .fc-timegrid-col.fc-day-today {
+  background: rgba(236, 72, 153, 0.08)!important;
+}
+
+.fc .fc-event {
+  border-radius: 6px;
+}
+
+.fc .fc-event-title {
+  font-size: 0.75rem;
+  font-weight: 500;
 }
 
 /* ===== FULLCALENDAR MOBILE FIX ===== */
@@ -79,23 +148,28 @@ textarea::placeholder {
   }
 
   .fc .fc-toolbar-title {
-    font-size: 1.25rem !important;
+    font-size: 1.1rem!important;
     text-align: center;
     width: 100%;
   }
 
   .fc .fc-button {
-    padding: 0.4rem 0.75rem !important;
-    font-size: 0.825rem !important;
+    padding: 6px 12px!important;
+    font-size: 0.75rem!important;
     min-width: 2.5rem;
   }
 
   .fc .fc-today-button {
-    padding: 0.4rem 1rem !important;
+    padding: 0.4rem 1rem!important;
   }
 
-  .fc .fc-button-text {
-    white-space: normal;
+  .fc .fc-col-header-cell-cushion {
+    font-size: 0.75rem;
+    padding: 6px 2px;
+  }
+
+  .fc .fc-event-title {
+    font-size: 0.7rem;
   }
 }
 
@@ -125,28 +199,4 @@ textarea::placeholder {
   .gallery-section .before-after-slider input[type='range'] {
     width: 100%;
   }
-}
-
-/* Botões dark mode pro FullCalendar */
-.fc .fc-button-primary {
-  background-color: #0f172a;
-  border-color: #334155;
-  color: #e2e8f0;
-}
-
-.fc .fc-button-primary:hover {
-  background-color: #1e293b;
-  border-color: #06b6d4;
-}
-
-.fc .fc-button-primary:disabled {
-  background-color: #1e293b;
-  border-color: #334155;
-  opacity: 0.6;
-}
-
-.fc .fc-button-primary:not(:disabled).fc-button-active,
-.fc .fc-button-primary:not(:disabled):active {
-  background-color: #0891b2;
-  border-color: #0891b2;
 }

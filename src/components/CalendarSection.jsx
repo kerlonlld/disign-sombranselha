@@ -146,14 +146,14 @@ function CalendarSection({ refreshTrigger }) {
   }
 
   return (
-    <section className="rounded- border border-white/10 bg-slate-900/80 p-8 shadow-glow backdrop-blur-md">
+    <section className="rounded- border border-white/10 bg-slate-900/80 p-4 sm:p-8 shadow-glow backdrop-blur-md">
       <div className="space-y-6">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <p className="text-sm uppercase tracking-[0.28em] text-cyan-300">Calendário online</p>
-            <h2 className="text-3xl font-semibold text-white sm:text-4xl">Agenda em tempo real para clientes e agendamentos.</h2>
+            <h2 className="text-2xl font-semibold text-white sm:text-4xl">Agenda em tempo real para clientes e agendamentos.</h2>
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-3">
             <button
               onClick={handleRefresh}
               disabled={loading}
@@ -161,14 +161,14 @@ function CalendarSection({ refreshTrigger }) {
             >
               {loading? '🔄' : '↻'} Recarregar
             </button>
-            <div className="rounded-full border border-slate-700 bg-slate-950/80 px-5 py-3 text-sm text-slate-200">
+            <div className="rounded-full border border-slate-700 bg-slate-950/80 px-4 py-2 text-xs sm:px-5 sm:py-3 sm:text-sm text-slate-200">
               {loading? 'Carregando agenda...' : `Atualizado ${lastRefresh.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}`}
             </div>
           </div>
         </div>
         <p className="max-w-3xl text-slate-300">Os horários salvos aparecem aqui em modo calendário. Quando estiver com o Firebase configurado, o painel mostra reservas reais e bloqueios automáticos.</p>
         {error && (
-          <div className="rounded-3xl border border-rose-400/20 bg-rose-500/10 p-4 text-sm text-rose-200">
+          <div className="rounded- border border-rose-400/20 bg-rose-500/10 p-4 text-sm text-rose-200">
             {error}
             <button
               onClick={handleRefresh}
@@ -179,7 +179,7 @@ function CalendarSection({ refreshTrigger }) {
           </div>
         )}
         {selectedEvent && (
-          <div className="mb-4 rounded-3xl border border-cyan-400/20 bg-cyan-500/10 p-5 text-slate-200 shadow-lg">
+          <div className="mb-4 rounded- border border-cyan-400/20 bg-cyan-500/10 p-4 sm:p-5 text-slate-200 shadow-lg">
             <div className="flex items-start justify-between gap-4">
               <div>
                 <p className="text-sm uppercase tracking-[0.28em] text-cyan-300">Detalhes do agendamento</p>
@@ -194,18 +194,18 @@ function CalendarSection({ refreshTrigger }) {
               </button>
             </div>
             <div className="mt-4 grid gap-3 sm:grid-cols-2">
-              <div className="rounded-3xl border border-white/10 bg-slate-950/80 p-4">
+              <div className="rounded- border border-white/10 bg-slate-950/80 p-4">
                 <p className="text-sm text-slate-400">Serviço</p>
                 <p className="mt-2 text-lg font-semibold">{selectedEvent.service}</p>
               </div>
-              <div className="rounded-3xl border border-white/10 bg-slate-950/80 p-4">
+              <div className="rounded- border border-white/10 bg-slate-950/80 p-4">
                 <p className="text-sm text-slate-400">Horário</p>
                 <p className="mt-2 text-lg font-semibold">{selectedEvent.date} · {selectedEvent.slot}</p>
               </div>
             </div>
           </div>
         )}
-        <div className="rounded- border border-white/10 bg-slate-950/90 p-4 shadow-2xl">
+        <div className="rounded- border border-white/10 bg-slate-950/90 p-2 sm:p-4 shadow-2xl overflow-x-auto">
           <FullCalendar
             plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
             initialView="timeGridWeek"
@@ -225,7 +225,7 @@ function CalendarSection({ refreshTrigger }) {
             slotMinTime="08:00:00"
             slotMaxTime="19:00:00"
             height="auto"
-            contentHeight={620}
+            contentHeight={520}
             eventDisplay="block"
             eventTimeFormat={{
               hour: '2-digit',
@@ -234,6 +234,8 @@ function CalendarSection({ refreshTrigger }) {
             }}
             eventClick={handleEventClick}
             locale="pt-br"
+            dayMaxEvents={true}
+            moreLinkClick="popover"
           />
         </div>
       </div>
