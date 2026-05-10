@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste Firebase Detalhado</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background: #1a1a1a; color: #fff; }
+        button { padding: 10px 20px; margin: 10px; background: #4CAF50; color: white; border: none; cursor: pointer; }
+        button:hover { background: #45a049; }
+        #result { margin-top: 20px; padding: 15px; background: #2a2a2a; border-radius: 5px; white-space: pre-wrap; font-family: monospace; }
+        .error { color: #ff6b6b; }
+        .success { color: #51cf66; }
+        .info { color: #74c0fc; }
+    </style>
+</head>
+<body>
+    <h1>🔍 Teste Detalhado do Firebase</h1>
+    <p>Esta página executa testes passo a passo para identificar problemas na configuração do Firebase.</p>
+
+    <button onclick="runDetailedTest()">🚀 Executar Teste Detalhado</button>
+    <button onclick="runQuickTest()">⚡ Teste Rápido</button>
+
+    <div id="result"></div>
+
+    <script type="module">
+        import { testFirebase } from './src/testFirebase.js'
+
+        window.runDetailedTest = async function() {
+            const resultDiv = document.getElementById('result')
+            resultDiv.innerHTML = '🔄 Executando testes detalhados...\n\n'
+
+            // Redirecionar console.log para o div
+            const originalLog = console.log
+            const originalError = console.error
+            const originalWarn = console.warn
+
+            console.log = function(...args) {
+                resultDiv.innerHTML += args.join(' ') + '\n'
+                originalLog.apply(console, args)
+            }
+            console.error = function(...args) {
+                resultDiv.innerHTML += '<span class="error">❌ ' + args.join(' ') + '</span>\n'
+                originalError.apply(console, args)
+            }
+            console.warn = function(...args) {
+                resultDiv.innerHTML += '<span class="info">⚠️ ' + args.join(' ') + '</span>\n'
+                originalWarn.apply(console, args)
+            }
+
+            try {
+                await testFirebase()
+                resultDiv.innerHTML += '\n<span class="success">✅ Testes concluídos!</span>'
+            } catch (error) {
+                resultDiv.innerHTML += '\n<span class="error">❌ Erro durante os testes: ' + error.message + '</span>'
+            }
+
+            // Restaurar console
+            console.log = originalLog
+            console.error = originalError
+            console.warn = originalWarn
+        }
+
+        window.runQuickTest = async function() {
+            const resultDiv = document.getElementById('result')
+            resultDiv.innerHTML = '🔄 Executando teste rápido...\n\n'
+
+            try {
+                const { loadAppointments } = await import('./src/firebaseConfig.js')
+                const appointments = await loadAppointments()
+                resultDiv.innerHTML = `
+                    <span class="success">✅ Firebase funcionando!</span>
+                    <div>Agendamentos encontrados: ${appointments.length}</div>
+                    <div>Primeiro agendamento: ${appointments[0] ? JSON.stringify(appointments[0], null, 2) : 'Nenhum'}</div>
+                `
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <span class="error">❌ Erro no Firebase</span>
+                    <div>${error.message}</div>
+                    <div class="info">💡 Verifique o console para mais detalhes</div>
+                `
+                console.error('Erro no teste rápido:', error)
+            }
+        }
+    </script>
+</body>
+</html>
