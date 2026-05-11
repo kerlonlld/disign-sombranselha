@@ -41,7 +41,7 @@ function HeroSection() {
 
             <div className="relative overflow-hidden rounded-xl border border-white/10 bg-slate-950/80 shadow-lg">
               <img
-                src="/sobrancelha-design.png"
+                src="/antes-depois.png"
                 alt="Antes e Depois"
                 className="h-full w-full object-cover"
               />
